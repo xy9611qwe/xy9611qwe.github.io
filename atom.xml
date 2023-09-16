@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://xy9611qwe.github.io/</id>
+    <title>SolidGround</title>
+    <updated>2023-09-16T14:33:01.486Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://xy9611qwe.github.io/"/>
+    <link rel="self" href="https://xy9611qwe.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://xy9611qwe.github.io/images/avatar.png</logo>
+    <icon>https://xy9611qwe.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, SolidGround</rights>
+    <entry>
+        <title type="html"><![CDATA[C++11&14高速上手教程 ]]></title>
+        <id>https://xy9611qwe.github.io/post/c11and14-gao-su-shang-shou-jiao-cheng/</id>
+        <link href="https://xy9611qwe.github.io/post/c11and14-gao-su-shang-shou-jiao-cheng/">
+        </link>
+        <updated>2023-09-16T09:30:48.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<p>内容摘自蓝桥云的课程：https://www.lanqiao.cn/courses/605，并且包含个人的学习心得。<br>
+参考文档为欧长坤翻译的CPP。</p>
+<!-- more -->
+<h1 id="1-实验一-c1114简介">1. 实验一、C++11&amp;14简介</h1>
+<h2 id="11-概述">1.1 概述</h2>
+<h3 id="111-目标读者">1.1.1 目标读者</h3>
+<p>熟悉了传统C++,并且阅读传统C++代码不具备困难。</p>
+<h3 id="112-引言">1.1.2  引言</h3>
+<p>C++ 算是一个用户群体比较大的语言了，从 C++ 98 到 C++ 11 经历了长达十年多之久的积累，C++ 14 则是作为对 C++ 11 的重要补充和优化，所有这些新标准中扩充的特性，给 C++ 这门语言注入了新的活力。<br>
+那些还在坚持使用 传统 C++ （本教程把 C++ 98 及其之前的 C++ 特性均称之为传统 C++）而未接触过 C++ 11 / 14 的 C++ 程序员在见到诸如 Lambda 表达式这类全新特性时，甚至会流露出『学的不是同一门语言』的惊叹之情。<br>
+C++ 1x （本教程中指 C++ 11 / 14, 甚至 C++ 17） 为传统 C++ 注入的大量特性使得整个 C++ 变得更加像一门现代化的语言。C++ 1x 不仅仅增强了 C++ 语言自身的可用性，auto 关键字语义的修改使得我们更加有信心来操控极度复杂的模板类型。同时还对语言运行期进行了大量的强化，Lambda 表达式的出现让 C++ 具有了『匿名函数』的『闭包』特性，而这一特性几乎在现代的编程语言（诸如 Python/Swift/... ）中已经司空见惯，右值引用的出现解决了 C++ 长期以来被人诟病的临时对象效率问题等等。<br>
+C++ 1x 为自身的标准库增加了非常多的工具和方法，诸如在语言层面上提供了 std::thread 支持了并发编程，在不同平台上不再依赖于系统底层的 API，实现了语言层面的跨平台支持；std::regex提供了完整的正则表达式支持等等。<br>
+C++ 98 已经被实践证明了是一种非常成功的『范型』，而 C++ 1x 的出现，则进一步推动这种范型，让 C++ 成为系统程序设计和库开发更好的语言。</p>
+<h3 id="113-提示">1.1.3 提示</h3>
+<p>提示：本课程所有代码至少需要开启 <code>-std=c++11</code> 选项来支持 C++ 11 相关特性，在介绍 C++ 14 特性时的相关代码需要开启 <code>-std=c++14</code> 的编译选项，例如：</p>
+<pre><code class="language-cpp">$ g++ main.cpp -std=c++11
+
+$ g++ main.cpp -std=c++14
+</code></pre>
+<p>推荐所有代码均使用 -std=c++14 选项进行编译。</p>
+<h2 id="12-教程目录">1.2 教程目录</h2>
+<ol>
+<li>Part 1</li>
+</ol>
+<ul>
+<li>C++11/14 简介
+<ul>
+<li>概述</li>
+<li>教程目录</li>
+<li>被弃用的特性</li>
+<li>与 C 的兼容性</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>Part 2</li>
+</ol>
+<ul>
+<li>语言可用性的强化
+<ul>
+<li>nullptr 与 constexpr</li>
+<li>类型推导
+<ul>
+<li>auto</li>
+<li>decltype</li>
+<li>尾返回类型、auto 与 decltype 配合</li>
+</ul>
+</li>
+<li>区间迭代
+<ul>
+<li>基于范围的 for 循环</li>
+</ul>
+</li>
+<li>初始化列表
+<ul>
+<li>std::initializer_list</li>
+<li>统一初始化语法</li>
+</ul>
+</li>
+<li>模板增强
+<ul>
+<li>外部模板</li>
+<li>尖括号 &gt;</li>
+<li>类型别名模板</li>
+<li>变长参数模板</li>
+</ul>
+</li>
+<li>面向对象增强
+<ul>
+<li>委托构造</li>
+<li>继承构造</li>
+<li>显式虚函数重载
+<ul>
+<li>override</li>
+<li>final</li>
+</ul>
+</li>
+<li>显式禁用默认函数</li>
+</ul>
+</li>
+<li>强类型枚举</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>Part 3</li>
+</ol>
+<ul>
+<li>语言运行期的强化
+<ul>
+<li>lambda 表达式
+<ul>
+<li>lambda 表达式基础
+<ul>
+<li>值捕获</li>
+<li>引用捕获</li>
+<li>隐式捕获</li>
+<li>表达式捕获</li>
+</ul>
+</li>
+<li>泛型 lambda</li>
+</ul>
+</li>
+<li>函数对象包装器
+<ul>
+<li>std::function</li>
+<li>std::bind/std::placeholder</li>
+</ul>
+</li>
+<li>右值引用
+<ul>
+<li>左值、右值的纯右值、将亡值、右值</li>
+<li>右值引用和左值引用</li>
+<li>移动语义</li>
+<li>完美转发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>Part4</li>
+</ol>
+<ul>
+<li>对标准库的扩充: 新增容器
+<ul>
+<li>std::array</li>
+<li>std::forward_list</li>
+<li>std::unordered_set</li>
+<li>std::unordered_map</li>
+<li>std::tuple
+<ul>
+<li>基本操作</li>
+<li>运行期索引</li>
+<li>合并与迭代</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li>Part 5</li>
+</ol>
+<ul>
+<li>对标准库的扩充: 智能指针和引用计数
+<ul>
+<li>引用计数</li>
+<li>std::shared_ptr</li>
+<li>std::make_shared</li>
+<li>std::unique_ptr</li>
+<li>std::weak_ptr</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li>Part 6</li>
+</ol>
+<ul>
+<li>对标准库的扩充: 正则表达式库
+<ul>
+<li>正则表达式简介
+<ul>
+<li>普通字符</li>
+<li>特殊字符</li>
+<li>限定符</li>
+</ul>
+</li>
+<li>std::regex 及其相关
+<ul>
+<li>std::regex</li>
+<li>std::regex_match</li>
+<li>std::match_results</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="7">
+<li>Part 7</li>
+</ol>
+<ul>
+<li>对标准库的扩充: 语言级线程支持
+<ul>
+<li>std::thread</li>
+<li>std::mutex</li>
+<li>std::unique_lock</li>
+<li>std::future</li>
+<li>std::packaged_task</li>
+<li>std::condition_variable</li>
+</ul>
+</li>
+</ul>
+<ol start="8">
+<li>Part 8</li>
+</ol>
+<ul>
+<li>其他杂项
+<ul>
+<li>新类型
+<ul>
+<li>long long int</li>
+</ul>
+</li>
+<li>noexcept 的修饰和操作</li>
+<li>字面量
+<ul>
+<li>原始字符串字面量</li>
+<li>自定义字面量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="9">
+<li>Part 9</li>
+</ol>
+<ul>
+<li>扩展主题: C++17 简介
+<ul>
+<li>主要入选特性
+<ul>
+<li>非类型模板参数的 auto</li>
+<li>std::variant&lt;&gt;</li>
+<li>结构化绑定(Structured bindings)</li>
+<li>变量声明的强化</li>
+</ul>
+</li>
+<li>未入选特性
+<ul>
+<li>Concepts</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="13-被弃用的特性">1.3 被弃用的特性</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://xy9611qwe.github.io/post/hello-gridea/</id>
+        <link href="https://xy9611qwe.github.io/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="https://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
